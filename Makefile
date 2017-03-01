@@ -18,11 +18,13 @@ OBJ=$(CLIENT_OBJ) $(SERVER_OBJ)
 
 GEN=named-drawing/named-drawing.hh named-drawing/named-drawingSK.cc named-drawing/named-drawingDynSK.cc annotated-drawing/annotated-drawing.hh annotated-drawing/annotated-drawingSK.cc annotated-drawing/annotated-drawingDynSK.cc
 
+SUBDIRS=doc obj named-drawing annotated-drawing
+
 CLEAN=$(OBJ) $(GEN)
-MRPROPER=$(CLIENT_BIN) $(SERVER_BIN)
+MRPROPER=$(CLIENT_BIN) $(SERVER_BIN) $(SUBDIRS)
 
 
-all: $(CLIENT_BIN) $(SERVER_BIN)
+all: init $(CLIENT_BIN) $(SERVER_BIN)
 
 
 $(CLIENT_BIN): $(CLIENT_OBJ)
@@ -147,14 +149,17 @@ obj/global_verbosity.o: globals/global_verbosity.cpp globals/global_verbosity.h
 
 
 
-.PHONY: doc clean mrproper
+.PHONY: init doc clean mrproper
 
+init:
+	@mkdir -p $(SUBDIRS)
 
 doc: $(PROJECT_DOC)
 
 
-clean: $(CLEAN)
+clean:
 	@rm -vrf $(CLEAN)
 
-mrproper: clean $(MRPROPER)
+mrproper: clean
 	@rm -vrf $(MRPROPER)
+
