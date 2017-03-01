@@ -23,6 +23,7 @@
 #include "global_verbosity.h"
 
 #include "functions.h"
+#include "Image.h"
 
 #include <signal.h>
 
@@ -335,9 +336,85 @@ int main(int argc, char *argv[])
     unique_ptr<Shape> shape_ptr;
     LogRenderEngine   engine;
     map< string, unique_ptr<Shape> > drawings_by_name;
+    list< string > whose_drawings_on_fresco;
 
     shell
-        .when("cl", [](){ cout << "cl xp hello rcv rcvlist rcvdisplay annotate" << endl; }, "show command list")
+        .when("cl", [](){ cout << "cl xp hello rcv rcvlist rcvdisplay annotate select frescolist drop createfresco" << endl; }, "show command list")
+        .when("createfresco",
+            [&whose_drawings_on_fresco, &drawings_by_name, &engine]()
+            {
+                Image im = Image::create(- numeric_limits<double>::infinity(), numeric_limits<double>::infinity(), - numeric_limits<double>::infinity(), numeric_limits<double>::infinity());
+                Color default_color{0,0,0};
+                for(auto it = whose_drawings_on_fresco.begin(); it != whose_drawings_on_fresco.end(); it++)
+                {
+                    unique_ptr<Shape> &shape_ptr = drawings_by_name[*it];
+                    im.insert(*shape_ptr, default_color);
+                }
+                cout << "fresco expression: " << im << endl;
+                im.render(engine);
+                cout << "fresco render:" << endl << engine.result() << endl;
+                engine.clear();
+            }, "create fresco from collected drawings of authors on the fresco list")
+        .when("drop",
+            [&whose_drawings_on_fresco]()
+            {
+                string author_name;
+                cout << "Who?" << endl << "moutond|drop> ";
+                if(getline(cin, author_name))
+                {
+                    str_trim_ws(author_name);
+                    auto it = find(whose_drawings_on_fresco.begin(), whose_drawings_on_fresco.end(), author_name);
+                    if(it == whose_drawings_on_fresco.end())
+                        cout << author_name << " not on the fresco list" << endl;
+                    else
+                    {
+                        whose_drawings_on_fresco.erase(it);
+                        cout << author_name << " removed from fresco list" << endl;
+                    }
+                }
+            }, "drop an author's name from the fresco list")
+        .when("frescolist",
+            [&whose_drawings_on_fresco]()
+            {
+                if(whose_drawings_on_fresco.empty())
+                    cout << "no one yet" << endl;
+                else
+                {
+                    auto it = whose_drawings_on_fresco.begin();
+                    cout << *it;
+                    it++;
+                    while(it != whose_drawings_on_fresco.end())
+                    {
+                        cout << " " << *it;   
+                        it++;
+                    }
+                    cout << endl;
+                }
+            }, "list authors selected to contribute to the fresco")
+        .when("select",
+            [&whose_drawings_on_fresco, &drawings_by_name]()
+            {
+                string author_name;
+                cout << "Who?" << endl << "moutond|select> ";
+                if(getline(cin, author_name))
+                {
+                    str_trim_ws(author_name);
+                    auto shape_it = drawings_by_name.find(author_name);
+                    if(shape_it == drawings_by_name.end())
+                        cout << "no one named " << author_name << " sent you anything" << endl;
+                    else
+                    {
+                        auto fresco_it = find(whose_drawings_on_fresco.begin(), whose_drawings_on_fresco.end(), author_name);
+                        if(fresco_it != whose_drawings_on_fresco.end())
+                            cout << author_name << " already on the fresco list" << endl;
+                        else
+                        {
+                            whose_drawings_on_fresco.push_back(author_name);
+                            cout << author_name << " selected for the fresco" << endl;
+                        }
+                    }
+                }
+            }, "select an author whose drawing goes on the fresco")
         .when("annotate",
             [&drawings_by_name, &proxy_consumer, &name]()
             {
