@@ -1,0 +1,15 @@
+
+module fr
+{
+    module upem
+    {
+        module mouton
+        {
+            struct NamedDrawing
+            {
+                string drawing_expr;
+                string name;
+            };
+        };
+    };
+};

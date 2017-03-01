@@ -1,0 +1,17 @@
+
+module fr
+{
+    module upem
+    {
+        module mouton
+        {
+            struct AnnotatedDrawing
+            {
+                string drawing_expr;
+                string annotations;
+                string author_name;
+                string name;
+            };
+        };
+    };
+};
