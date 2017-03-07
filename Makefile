@@ -2,6 +2,8 @@ SERVER_BIN=moutond
 CLIENT_BIN=mouton
 PROJECT_DOC=doc
 
+JACORB_BIN=/home/ysanquer/bin/jacorb-3.8/bin
+
 DOXYGEN=doxygen
 CPP=g++
 CPPARGS_GEN=-g -ggdb -std=c++11 -Wfatal-errors
@@ -11,12 +13,13 @@ DEFINEARGS=-D__x86__ -D__linux__ -D__OSVERSION__=3 -D_REENTRANT -DHAVE_IOSTREAM 
 LDARGS=-lomniORB4 -lomnithread -lomniDynamic4 -lomniCodeSets4 -lCOS4 -lCOSDynamic4 -lomniEvents
 IDLCPP=omniidl
 IDLCPPARGS=-bcxx -Wba
+IDLJ=$(JACORB_BIN/idl)
 
 CLIENT_OBJ=obj/mouton_main.o obj/ProcShell.o obj/Vector.o obj/AbstractLine.o obj/AbstractDefinedLine.o obj/DefinedLine.o obj/DefinedLineSegment.o obj/VectorRefSegment.o obj/Polygon.o obj/Circle.o obj/Ellipse.o obj/Image.o obj/ShapeELParser.o obj/LogRenderEngine.o obj/PullSupplierImpl.o obj/named-drawingSK.o obj/named-drawingDynSK.o obj/annotated-drawingSK.o obj/annotated-drawingDynSK.o obj/PushConsumerImpl.o obj/naming.o obj/global_verbosity.o
 SERVER_OBJ=obj/moutond_main.o obj/global_verbosity.o obj/naming.o obj/ProcShell.o obj/ShapeELParser.o obj/LogRenderEngine.o obj/Vector.o obj/PullConsumerImpl.o obj/PushSupplierImpl.o obj/DefinedLine.o obj/DefinedLineSegment.o obj/Polygon.o obj/Circle.o obj/Ellipse.o obj/Image.o obj/AbstractDefinedLine.o obj/AbstractLine.o obj/VectorRefSegment.o obj/named-drawingSK.o obj/named-drawingDynSK.o obj/annotated-drawingSK.o obj/annotated-drawingDynSK.o
 OBJ=$(CLIENT_OBJ) $(SERVER_OBJ)
 
-GEN=named-drawing/named-drawing.hh named-drawing/named-drawingSK.cc named-drawing/named-drawingDynSK.cc annotated-drawing/annotated-drawing.hh annotated-drawing/annotated-drawingSK.cc annotated-drawing/annotated-drawingDynSK.cc
+GEN=named-drawing/named-drawing.hh named-drawing/named-drawingSK.cc named-drawing/named-drawingDynSK.cc annotated-drawing/annotated-drawing.hh annotated-drawing/annotated-drawingSK.cc annotated-drawing/annotated-drawingDynSK.cc java-client/gen
 
 SUBDIRS=doc obj named-drawing annotated-drawing
 
@@ -38,6 +41,14 @@ $(SERVER_BIN): $(SERVER_OBJ)
 $(PROJECT_DOC):
 	@echo "Generating Doxygen documentation"
 	@$(DOXYGEN) Doxyfile
+
+java-client/gen/fr/upem/mouton/AnnotatedDrawing%.java: idl/annotated-drawing.idl
+	@echo "Generating $@ from $<"
+	@$(IDLJ) -d java-client/gen $<
+
+java-client/gen/fr/upem/mouton/NamedDrawing%.java: idl/named-drawing.idl
+	@echo "Generating $@ from $<"
+	@$(IDLJ) -d java-client/gen $<
 
 obj/mouton_main.o: main-client/mouton_main.cpp shell/ProcShell.h named-drawing/named-drawing.hh annotated-drawing/annotated-drawing.hh globals/global_verbosity.h
 	@echo "Building $< into $@"
