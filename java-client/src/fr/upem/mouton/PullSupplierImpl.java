@@ -1,17 +1,19 @@
 package fr.upem.mouton;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import org.omg.CORBA.Any;
 import org.omg.CORBA.BooleanHolder;
-import org.omg.CORBA.ORB;
 import org.omg.CosEventComm.Disconnected;
 import org.omg.CosEventComm.PullSupplierOperations;
 
-public class PullSupplierImpl implements PullSupplierOperations {
+public class PullSupplierImpl<T> implements PullSupplierOperations {
+	private final int sleepTimeMillis;
 	private final Supplier<Any> createAny;
-	private NamedDrawing toSend = null;
+	private final BiConsumer<Any, T> anyInsert;
+	private Any toSend = null;
 	private boolean sending = false;
 	private final Object sync = new Object();
 
@@ -19,51 +21,71 @@ public class PullSupplierImpl implements PullSupplierOperations {
 		return sending;
 	}
 
-	public void sendNamedDrawing(NamedDrawing nd) {
+	public void send(T obj) {
 		synchronized (sync) {
-			if (isSending()) {
+			if (sending) {
 				throw new IllegalStateException("already sending");
 			}
-			this.toSend = Objects.requireNonNull(nd);
+			this.toSend = this.createAny.get();
+			this.anyInsert.accept(this.toSend, obj);
 			this.sending = true;
 		}
 	}
 
-	public PullSupplierImpl(Supplier<Any> createAny) {
+	public PullSupplierImpl(Supplier<Any> createAny, BiConsumer<Any, T> anyInsert) {
+		this(createAny, anyInsert, 1000);
+	}
+
+	public PullSupplierImpl(Supplier<Any> createAny, BiConsumer<Any, T> anyInsert, int sleepTimeMillis) {
 		this.createAny = Objects.requireNonNull(createAny);
+		this.anyInsert = Objects.requireNonNull(anyInsert);
+		this.sleepTimeMillis = sleepTimeMillis;
 	}
 
 	@Override
 	public void disconnect_pull_supplier() {
-		System.out.println("NAMED_DRAWING_PULL_SUPPLIER/disconnect");
+		System.out.println("sihshudsd");
 	}
 
 	@Override
 	public Any pull() throws Disconnected {
-		System.out.println("NAMED_DRAWING_PULL_SUPPLIER/pull begin");
+		System.out.println("un");
 		BooleanHolder has_event = new BooleanHolder(false);
-		Any ret;
-		do {
+		Any ret = this.try_pull(has_event);
+		while (!Thread.currentThread().isInterrupted()) {
+			if (has_event.value) {
+				// any not empty
+				break;
+			}
+
+			// otherwise wait before going again
+			ret = null;
+			try {
+				Thread.sleep(sleepTimeMillis);
+			} catch (InterruptedException e) {
+				// restore interrupted status then break with empty any
+				Thread.currentThread().interrupt();
+				break;
+			}
 			ret = this.try_pull(has_event);
-		} while (!has_event.value);
-		System.out.println("NAMED_DRAWING_PULL_SUPPLIER/pull end");
+		}
+		System.out.println("deux");
 		return ret;
 	}
 
 	@Override
 	public Any try_pull(BooleanHolder has_event) throws Disconnected {
-		System.out.println("NAMED_DRAWING_PULL_SUPPLIER/try_pull begin");
-		Any ret = this.createAny.get();
 		has_event.value = false;
 		synchronized (sync) {
+			Any ret = this.createAny.get();
 			if (sending) {
-				NamedDrawingHelper.insert(ret, toSend);
 				has_event.value = true;
+				ret = toSend;
 				sending = false;
 				toSend = null;
 			}
+			// else ret is empty by definition
+			return ret;
 		}
-		System.out.println("NAMED_DRAWING_PULL_SUPPLIER/try_pull end");
-		return ret;
 	}
 }
