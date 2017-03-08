@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/ysanquer/bin/jacorb-3.8/lib/jacorb-3.8.jar"/>
 	<classpathentry kind="lib" path="/home/ysanquer/bin/jacorb-3.8/lib/antlr-2.7.2.jar"/>
