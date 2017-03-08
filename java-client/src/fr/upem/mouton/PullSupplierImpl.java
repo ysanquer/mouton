@@ -44,15 +44,13 @@ public class PullSupplierImpl<T> implements PullSupplierOperations {
 
 	@Override
 	public void disconnect_pull_supplier() {
-		System.out.println("sihshudsd");
 	}
 
 	@Override
 	public Any pull() throws Disconnected {
-		System.out.println("un");
 		BooleanHolder has_event = new BooleanHolder(false);
 		Any ret = this.try_pull(has_event);
-		while (!Thread.currentThread().isInterrupted()) {
+		for(;;) {
 			if (has_event.value) {
 				// any not empty
 				break;
@@ -69,7 +67,6 @@ public class PullSupplierImpl<T> implements PullSupplierOperations {
 			}
 			ret = this.try_pull(has_event);
 		}
-		System.out.println("deux");
 		return ret;
 	}
 

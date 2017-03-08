@@ -15,16 +15,16 @@ public class PushConsumerImpl<T> implements PushConsumerOperations {
 	private final Queue<T> receptionQueue = new LinkedList<>();
 	private final Supplier<TypeCode> typeCodeSupplier;
 	private final Function<Any, T> anyExtract;
-	
+
 	public PushConsumerImpl(Supplier<TypeCode> typeCodeSupplier, Function<Any, T> anyExtract) {
 		this.typeCodeSupplier = Objects.requireNonNull(typeCodeSupplier);
 		this.anyExtract = Objects.requireNonNull(anyExtract);
 	}
-	
+
 	public boolean hasReceived() {
 		return !receptionQueue.isEmpty();
 	}
-	
+
 	public T nextReceived() {
 		synchronized (receptionQueue) {
 			return receptionQueue.remove();
@@ -33,7 +33,6 @@ public class PushConsumerImpl<T> implements PushConsumerOperations {
 
 	@Override
 	public void disconnect_push_consumer() {
-		System.err.println("wat");
 	}
 
 	@Override
