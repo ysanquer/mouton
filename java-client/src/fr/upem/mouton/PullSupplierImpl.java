@@ -9,7 +9,7 @@ import org.omg.CORBA.ORB;
 import org.omg.CosEventComm.Disconnected;
 import org.omg.CosEventComm.PullSupplierOperations;
 
-public class NamedDrawingPullSupplier implements PullSupplierOperations {
+public class PullSupplierImpl implements PullSupplierOperations {
 	private final Supplier<Any> createAny;
 	private NamedDrawing toSend = null;
 	private boolean sending = false;
@@ -29,7 +29,7 @@ public class NamedDrawingPullSupplier implements PullSupplierOperations {
 		}
 	}
 
-	public NamedDrawingPullSupplier(Supplier<Any> createAny) {
+	public PullSupplierImpl(Supplier<Any> createAny) {
 		this.createAny = Objects.requireNonNull(createAny);
 	}
 

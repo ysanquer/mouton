@@ -26,8 +26,8 @@ import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
 import org.omg.PortableServer.POAPackage.ServantNotActive;
 import org.omg.PortableServer.POAPackage.WrongPolicy;
 
-import fr.upem.mouton.AnnotatedDrawingPushConsumer;
-import fr.upem.mouton.NamedDrawingPullSupplier;
+import fr.upem.mouton.PushConsumerImpl;
+import fr.upem.mouton.PullSupplierImpl;
 
 public class MoutonClientMain {
 	public static void main(String[] args)
@@ -47,8 +47,8 @@ public class MoutonClientMain {
 		POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
 		rootPOA.the_POAManager().activate();
 
-		PushConsumerPOATie pcTie = new PushConsumerPOATie(new AnnotatedDrawingPushConsumer());
-		PullSupplierPOATie psTie = new PullSupplierPOATie(new NamedDrawingPullSupplier(orb::create_any));
+		PushConsumerPOATie pcTie = new PushConsumerPOATie(new PushConsumerImpl());
+		PullSupplierPOATie psTie = new PullSupplierPOATie(new PullSupplierImpl(orb::create_any));
 
 		PushConsumer pc = PushConsumerHelper.narrow(rootPOA.servant_to_reference(pcTie));
 		PullSupplier ps = PullSupplierHelper.narrow(rootPOA.servant_to_reference(psTie));

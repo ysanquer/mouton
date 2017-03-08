@@ -7,7 +7,7 @@ import org.omg.CORBA.Any;
 import org.omg.CosEventComm.Disconnected;
 import org.omg.CosEventComm.PushConsumerOperations;
 
-public class AnnotatedDrawingPushConsumer implements PushConsumerOperations {
+public class PushConsumerImpl implements PushConsumerOperations {
 	private final Queue<AnnotatedDrawing> receptionQueue = new LinkedList<>();
 	
 	public boolean hasReceived() {
