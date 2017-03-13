@@ -9,6 +9,16 @@ import org.omg.CORBA.BooleanHolder;
 import org.omg.CosEventComm.Disconnected;
 import org.omg.CosEventComm.PullSupplierOperations;
 
+/**
+ * @brief Implementation of {@link PullSupplierOperations}.
+ * 
+ *        This implementation yields instances of T serialized into {@link Any}.
+ * 
+ * @authors Yann Sanquer
+ *
+ * @param <T>
+ *            type of sent data
+ */
 public class PullSupplierImpl<T> implements PullSupplierOperations {
 	private final int sleepTimeMillis;
 	private final Supplier<Any> createAny;
@@ -17,10 +27,31 @@ public class PullSupplierImpl<T> implements PullSupplierOperations {
 	private boolean sending = false;
 	private final Object sync = new Object();
 
+	/**
+	 * @brief Is this instance sending something?
+	 * 
+	 *        A {@link PullSupplierImpl} is sending something if the
+	 *        {@link PullSupplierImpl#send(T)} method was called on it,
+	 *        completed, but no call to {@link PullSupplierImpl#pull()} has
+	 *        happened yet.
+	 * 
+	 * @return whether this instance is sending something
+	 */
 	public boolean isSending() {
 		return sending;
 	}
 
+	/**
+	 * @brief Offer an object for pulling.
+	 * 
+	 *        After a completed call to this method, this instance is in the
+	 *        sending state.
+	 * 
+	 * @param obj
+	 *            the object to be pulled
+	 * 
+	 * @see PullSupplierImpl#isSending()
+	 */
 	public void send(T obj) {
 		synchronized (sync) {
 			if (sending) {
@@ -32,10 +63,39 @@ public class PullSupplierImpl<T> implements PullSupplierOperations {
 		}
 	}
 
+	/**
+	 * @brief Create a new {@link PullSupplierImpl} with given {@link Any}
+	 *        supplier, and T to {@link Any} inserter.
+	 * 
+	 *        The sleep time defaults to one second.
+	 * 
+	 * @param createAny
+	 *            {@link Any} object generator
+	 * @param anyInsert
+	 *            the function that inserts objects of type T into an
+	 *            {@link Any}
+	 */
 	public PullSupplierImpl(Supplier<Any> createAny, BiConsumer<Any, T> anyInsert) {
 		this(createAny, anyInsert, 1000);
 	}
 
+	/**
+	 * @brief Create a new {@link PullSupplierImpl} with given {@link Any}
+	 *        supplier, and T to {@link Any} inserter; The
+	 *        {@link PullSupplierImpl#pull()} method will wait for the given
+	 *        time in milliseconds before trying to pull again.
+	 * 
+	 * @param createAny
+	 *            {@link Any} object generator
+	 * @param anyInsert
+	 *            the function that inserts objects of type T into an
+	 *            {@link Any}
+	 * @param sleepTimeMillis
+	 *            the time, in milliseconds, that
+	 *            {@link PullSupplierImpl#pull()} should wait before trying to
+	 *            call {@link PullSupplierImpl#try_pull(BooleanHolder)} again
+	 *            after it yielded nothing
+	 */
 	public PullSupplierImpl(Supplier<Any> createAny, BiConsumer<Any, T> anyInsert, int sleepTimeMillis) {
 		this.createAny = Objects.requireNonNull(createAny);
 		this.anyInsert = Objects.requireNonNull(anyInsert);
@@ -50,7 +110,7 @@ public class PullSupplierImpl<T> implements PullSupplierOperations {
 	public Any pull() throws Disconnected {
 		BooleanHolder has_event = new BooleanHolder(false);
 		Any ret = this.try_pull(has_event);
-		for(;;) {
+		for (;;) {
 			if (has_event.value) {
 				// any not empty
 				break;
