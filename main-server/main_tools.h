@@ -4,14 +4,41 @@
 #include <functional>
 #include <omniORB4/CORBA.h>
 
+///
+/// \brief Procedure type
+///
 typedef std::function<void()> Proc;
 
+///
+/// \brief Obtain an instance of T through a TSupplier
+///
 template<typename T, typename TSupplier>
 T obtain(TSupplier ts, Proc nil_case, Proc comm_failure_case);
+
+///
+/// \brief Execute a connection loop on a procedure
+///
 void connect(Proc do_connect, Proc on_bad_param, Proc on_already_connected, Proc on_comm_failure);
+
+///
+/// \brief Execute a disconnection loop on a procedure
+///
 void disconnect(Proc do_disconnect, Proc on_comm_failure);
+
+///
+/// \brief Print usage
+///
 void usage();
 
+///
+/// In the case that CORBA::is_nil(ts()) would return true, nil_case()
+///  is executed and th program exits with value 1
+///
+/// In the case that ts() throws a CORBA::COMM_FAILURE, comm_failure_case()
+///  is executed and the loop retries
+///
+/// If none of those cases happen, the loop breaks and this function returns
+///
 template<typename T, typename TSupplier>
 T obtain(TSupplier ts, Proc nil_case, Proc comm_failure_case)
 {
@@ -37,6 +64,17 @@ T obtain(TSupplier ts, Proc nil_case, Proc comm_failure_case)
     return t;
 }
 
+///
+/// In the case that do_connect() throws a CORBA::BAD_PARAM, on_bad_param()
+///  is executed and the program exits with value 1
+///
+/// In the case that do_connect() throws a CORBA::COMM_FAILURE,
+///  on_comm_failure() is executed and the loop retries
+///
+/// If none of those cases happen or do_connect throws a
+///  CosEventChannelAdmin::AlreadyConnected, the loop breaks and this
+///  function returns
+///
 void connect(Proc do_connect, Proc on_bad_param, Proc on_already_connected, Proc on_comm_failure)
 {
     // Connect - retrying on Comms Failure.
@@ -65,6 +103,12 @@ void connect(Proc do_connect, Proc on_bad_param, Proc on_already_connected, Proc
     }
 }
 
+///
+/// In the case that do_disconnect() throws a CORBA::COMM_FAILURE,
+///  on_comm_failure is executed and the loop retries
+///
+/// If none of those cases happen, the loop breaks and this function returns
+///
 void disconnect(Proc do_disconnect, Proc on_comm_failure)
 {
     // Disconnect - retrying on Comms Failure.
