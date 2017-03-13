@@ -8,6 +8,8 @@
 /// \brief An implementation of a Shell that executes procedures
 ///  (take-nothing, return-nothing) functions
 ///
+/// \authors Yann Sanquer
+///
 /// This Shell implementation simply maps commands to their callbacks
 ///  and matches the commands against a word from the input stream
 ///

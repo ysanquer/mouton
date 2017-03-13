@@ -6,6 +6,13 @@
 #include <cctype>
 #include <string>
 
+///
+/// \brief Trim whitespace in a string
+///
+/// \authors Yann Sanquer
+///
+/// All whitespace on the left and right are trimmed from the given string
+///
 inline void str_trim_ws(std::string &str)
 {
     // erase leading ws

@@ -7,6 +7,8 @@
 ///
 /// \brief Shape implemntation for defined lines
 ///
+/// \authors Yann Sanquer
+///
 /// A defined line is defined with an origin point, and a direction vector
 ///
 class DefinedLine: public AbstractDefinedLine

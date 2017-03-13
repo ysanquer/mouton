@@ -13,11 +13,16 @@
 ///
 /// \brief Shape implementation for polygons
 ///
-/// Polygons are defined as a set of vertices
+/// \authors Yann Sanquer
+///
+/// Polygons are defined as a collection of vertices
 ///
 class Polygon: public Shape
 {
     public:
+        ///
+        /// \brief Vertices are Vectors
+        ///
         typedef std::vector<Vector> Vertices;
 
     private:
@@ -31,6 +36,12 @@ class Polygon: public Shape
         _Edges _edges;
 
     public:
+        ///
+        /// \brief Create a new Polygon from iterators to Vector
+        ///
+        /// Requires that end - begin >= 3;
+        ///  An InvalidShapeConstructionException is thrown otherwise
+        ///
         template<typename VerticesIterator>
         static inline
         Polygon create(VerticesIterator begin, VerticesIterator end)

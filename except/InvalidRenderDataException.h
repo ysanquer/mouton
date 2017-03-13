@@ -3,14 +3,26 @@
 
 #include "RenderEngineException.h"
 
+///
+/// \brief A RenderEngineException thrown when an engine's method is
+///  called with invalid arguments
+///
+/// \authors Yann Sanquer
+///
 class InvalidRenderDataException: public RenderEngineException
 {
     public:
+        ///
+        /// \brief Constructor
+        ///
         inline
         InvalidRenderDataException(std::string const &what_arg)
         : RenderEngineException(what_arg)
         {}
 
+        ///
+        /// \brief Destructor
+        ///
         inline virtual ~InvalidRenderDataException() {}
 };
 

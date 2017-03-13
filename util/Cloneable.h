@@ -5,6 +5,7 @@
 
 ///
 /// \brief Makes an object cloneable
+///
 /// \authors Yann Sanquer
 /// \authors Gabriel Bruit
 /// \authors Jérémy Montanes

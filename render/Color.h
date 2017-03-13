@@ -6,6 +6,8 @@
 ///
 /// \brief Object that groups RGB 3x8-bits components together
 ///
+/// \authors Yann Sanquer
+///
 struct Color
 {
     ///

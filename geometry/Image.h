@@ -12,7 +12,9 @@ class Vector;
 ///
 /// \brief Shape implementation for images
 ///
-/// Images are a set of colored shapes
+/// \authors Yann Sanquer
+///
+/// Images are a set of colored shapes, within a frame
 ///
 class Image: public Shape
 {
@@ -38,6 +40,9 @@ class Image: public Shape
     public:
         ///
         /// \brief Create a new Image
+        ///
+        /// Requires that xmin < xmax and ymin < ymax;
+        ///  An InvalidShapeConstructionException is thrown otherwise
         ///
         static Image create(double xmin, double xmax, double ymin, double ymax) throw(InvalidShapeConstructionException);
 

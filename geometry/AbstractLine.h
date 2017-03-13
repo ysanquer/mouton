@@ -6,13 +6,15 @@
 ///
 /// \brief Base class for any line object
 ///
+/// \authors Yann Sanquer
+///
 /// A line object has by definition no area
 ///
 class AbstractLine : public Shape
 {
     public:
         ///
-        /// Destructor
+        /// \brief Destructor
         ///
         virtual ~AbstractLine() = 0;
 

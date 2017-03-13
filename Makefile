@@ -27,7 +27,7 @@ CLEAN=$(OBJ) $(GEN)
 MRPROPER=$(CLIENT_BIN) $(SERVER_BIN) $(SUBDIRS)
 
 
-all: init $(CLIENT_BIN) $(SERVER_BIN)
+all: init $(CLIENT_BIN) $(SERVER_BIN) __BUILD_JAVA_CLIENT
 
 
 $(CLIENT_BIN): $(CLIENT_OBJ)
@@ -38,16 +38,20 @@ $(SERVER_BIN): $(SERVER_OBJ)
 	@echo "Linking together $^ into $@"
 	@$(CPP) $(LDARGS) $^ -o $@
 
+__BUILD_JAVA_CLIENT: __GENERATE_NAMED_DRAWING_JAVA __GENERATE_ANNOTATED_DRAWING_JAVA
+	@echo "Deferring Java client build to Ant..."
+	@(cd java-client && ant)
+
 $(PROJECT_DOC):
 	@echo "Generating Doxygen documentation"
 	@$(DOXYGEN) Doxyfile
 
-java-client/gen/fr/upem/mouton/AnnotatedDrawing%: idl/annotated-drawing.idl
-	@echo "Generating $@ from $<"
+__GENERATE_ANNOTATED_DRAWING_JAVA: idl/annotated-drawing.idl
+	@echo "Generating AnnotatedDrawing Java sources from $<"
 	@$(IDLJ) -d java-client/gen $<
 
-java-client/gen/fr/upem/mouton/NamedDrawing%: idl/named-drawing.idl
-	@echo "Generating $@ from $<"
+__GENERATE_NAMED_DRAWING_JAVA: idl/named-drawing.idl
+	@echo "Generating NamedDrawing Java sources from $<"
 	@$(IDLJ) -d java-client/gen $<
 
 obj/mouton_main.o: main-client/mouton_main.cpp shell/ProcShell.h named-drawing/named-drawing.hh annotated-drawing/annotated-drawing.hh globals/global_verbosity.h
@@ -160,7 +164,8 @@ obj/global_verbosity.o: globals/global_verbosity.cpp globals/global_verbosity.h
 
 
 
-.PHONY: init doc clean mrproper
+.PHONY: init doc clean mrproper __GENERATE_NAMED_DRAWING_JAVA __GENERATE_ANNOTATED_DRAWING_JAVA __BUILD_JAVA_CLIENT
+
 
 init:
 	@mkdir -p $(SUBDIRS)
@@ -170,6 +175,7 @@ doc: $(PROJECT_DOC)
 
 clean:
 	@rm -vrf $(CLEAN)
+	@(cd java-client && ant clean)
 
 mrproper: clean
 	@rm -vrf $(MRPROPER)

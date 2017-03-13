@@ -9,6 +9,8 @@
 ///
 /// \brief Defines a two-dimensional vector
 ///
+/// \authors Yann Sanquer
+///
 /// A Vector supports Transformable operations
 ///
 /// A Vector can evaluate its distance to another Vector in double

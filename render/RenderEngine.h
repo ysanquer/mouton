@@ -7,6 +7,8 @@
 ///
 /// \brief A rendering engine interface for the Mouton application
 ///
+/// \authors Yann Sanquer
+///
 /// Can draw lines, polygons, circles and ellipses, as well as
 ///  change the rendering color and set drawing frame
 ///

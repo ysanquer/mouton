@@ -11,6 +11,8 @@
 /// \brief A RenderEngine implementation that logs any drawing it
 ///  makes
 ///
+/// \authors Yann Sanquer
+///
 class LogRenderEngine: public RenderEngine
 {
     private:

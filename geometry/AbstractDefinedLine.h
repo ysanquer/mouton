@@ -7,6 +7,8 @@
 ///
 /// \brief Base class for fixed, independent lines
 ///
+/// \authors Yann Sanquer
+///
 /// Such lines are defined with two points: An origin and a direction
 ///
 class AbstractDefinedLine : public AbstractLine

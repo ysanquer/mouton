@@ -10,6 +10,7 @@ class Shape;
 
 ///
 /// \brief A parser for the Shape Expression Language
+///
 /// \authors Yann Sanquer
 /// \authors Gabriel Bruit
 /// \authors Jérémy Montanes

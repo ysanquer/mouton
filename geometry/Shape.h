@@ -12,6 +12,8 @@ class RenderEngine;
 ///
 /// \brief Base class for shapes
 ///
+/// \authors Yann Sanquer
+///
 /// A Shape supports the Transformable operations, can measure its
 ///  distance to a Vector, is Cloneable and is Renderable on a
 ///  RenderEngine

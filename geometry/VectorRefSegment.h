@@ -8,12 +8,21 @@
 ///
 /// \brief Shape implementation of a non-fixed line segment
 ///
+/// \authors Yann Sanquer
+///
 /// This line segment is defined with references to its end points
 ///
 class VectorRefSegment : public AbstractLine
 {
     protected:
+        ///
+        /// \brief First end of the segment
+        ///
         Vector &_end1;
+
+        ///
+        /// \brief Second end of the segment
+        ///
         Vector &_end2;
 
     public:

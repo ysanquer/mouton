@@ -7,6 +7,8 @@
 ///
 /// \brief Shape implementation for defined line segments
 ///
+/// \authors Yann Sanquer
+///
 /// Defined line segments are defined with an origin point, and a
 ///  direction vector which defines where the second point is compared
 ///  to the origin

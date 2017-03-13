@@ -8,6 +8,8 @@
 ///
 /// \brief Shape implementation for circles
 ///
+/// \authors Yann Sanquer
+///
 /// Circles are defined with a center point and a scalar radius
 ///
 class Circle: public Shape

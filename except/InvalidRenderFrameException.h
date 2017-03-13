@@ -3,14 +3,26 @@
 
 #include "RenderEngineException.h"
 
+///
+/// \brief A RenderEngineException thrown when the engine's render
+///  frame is set to an invalid state
+///
+/// \authors Yann Sanquer
+///
 class InvalidRenderFrameException: public RenderEngineException
 {
     public:
+        ///
+        /// \brief Constructor
+        ///
         inline
         InvalidRenderFrameException(std::string const &what_arg)
         : RenderEngineException(what_arg)
         {}
 
+        ///
+        /// \brief Destructor
+        ///
         inline virtual ~InvalidRenderFrameException() {}
 };
 

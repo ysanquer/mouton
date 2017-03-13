@@ -9,6 +9,8 @@
 ///
 /// \brief An object that maps character strings (commands) to functions
 ///
+/// \authors Yann Sanquer
+///
 /// These objects can match commands against an input character stream
 ///  and execute the corresponding functions
 ///

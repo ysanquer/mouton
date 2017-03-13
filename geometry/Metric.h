@@ -5,6 +5,8 @@
 /// \brief Defines an object that can evaluate its distance to another
 ///  "metric object"
 ///
+/// \authors Yann Sanquer
+///
 template<typename MetricObject, typename MetricValue>
 class Metric
 {

@@ -5,6 +5,8 @@
 /// \brief Defines an object as being able to be rendered on a
 ///  given Engine type
 ///
+/// \authors Yann Sanquer
+///
 /// This is made so you can define an object that can be rendered
 ///  on different engines
 ///
