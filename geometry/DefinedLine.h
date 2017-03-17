@@ -7,7 +7,9 @@
 ///
 /// \brief Shape implemntation for defined lines
 ///
+/// \authors Gabriel Bruit
 /// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 /// A defined line is defined with an origin point, and a direction vector
 ///
