@@ -9,6 +9,7 @@
 /// \brief Shape implementation for circles
 ///
 /// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 /// Circles are defined with a center point and a scalar radius
 ///
