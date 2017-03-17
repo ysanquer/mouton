@@ -7,7 +7,7 @@
 /// \brief An exception thrown by Shape, its subclasses and systems
 ///  that work with them
 ///
-/// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 class ShapeException: public std::exception
 {
