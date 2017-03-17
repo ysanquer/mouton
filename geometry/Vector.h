@@ -9,7 +9,8 @@
 ///
 /// \brief Defines a two-dimensional vector
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
+/// \authors Jeremy Montanes
 ///
 /// A Vector supports Transformable operations
 ///
