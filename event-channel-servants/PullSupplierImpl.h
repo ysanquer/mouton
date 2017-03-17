@@ -9,7 +9,7 @@
 ///
 /// \brief Implementation of a Pull Supplier
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 /// This implementation allows its user to specify delegate functions
 ///  called on this Pull Supplier
