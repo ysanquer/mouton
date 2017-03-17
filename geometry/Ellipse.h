@@ -8,7 +8,9 @@
 ///
 /// \brief Shape implementation for ellipses
 ///
+/// \authors Gabriel Bruit
 /// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 /// Ellipses are defined with two focal points F1 and F2, and the
 ///  short-axis radius
