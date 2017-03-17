@@ -12,7 +12,7 @@ class Vector;
 ///
 /// \brief Shape implementation for images
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 /// Images are a set of colored shapes, within a frame
 ///
