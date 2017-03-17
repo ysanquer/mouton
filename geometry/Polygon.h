@@ -13,6 +13,7 @@
 ///
 /// \brief Shape implementation for polygons
 ///
+/// \authors Gabriel Bruit
 /// \authors Yann Sanquer
 ///
 /// Polygons are defined as a collection of vertices
