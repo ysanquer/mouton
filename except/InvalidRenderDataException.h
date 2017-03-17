@@ -7,7 +7,7 @@
 /// \brief A RenderEngineException thrown when an engine's method is
 ///  called with invalid arguments
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 class InvalidRenderDataException: public RenderEngineException
 {
