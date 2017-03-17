@@ -6,6 +6,7 @@ class Vector;
 ///
 /// \brief Defines an object that supports some geometrical transformations
 ///
+/// \authors Gabriel Bruit
 /// \authors Yann Sanquer
 ///
 class Transformable
