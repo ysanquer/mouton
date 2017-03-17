@@ -5,6 +5,10 @@
 #include <omniORB4/CORBA.h>
 
 ///
+/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
+/// \authors Jeremy Montanes
+///
 /// \brief Procedure type
 ///
 typedef std::function<void()> Proc;
