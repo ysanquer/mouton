@@ -9,7 +9,7 @@
 ///
 /// \brief Implementation of a Push Supplier
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 /// This implementation lets its user specify delegates to its member
 ///  functions
