@@ -33,7 +33,6 @@ void* run_orb(void *);
 void render_on_engine(unique_ptr<Shape> const &, LogRenderEngine &);
 void show_shape(unique_ptr<Shape> const &);
 
-/** /author Jeremy Montanes */
 int main(int argc, char *argv[])
 {
     // Named Drawing Pull Consumer
