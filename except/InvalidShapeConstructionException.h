@@ -7,7 +7,7 @@
 /// \brief A ShapeException thrown when trying to construct a Shape
 ///  with invalid data
 ///
-/// \authors Gabriel Bruit
+/// \authors Gabriel Bruit, Jeremy Montanes
 ///
 class InvalidShapeConstructionException: public ShapeException
 {
