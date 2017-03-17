@@ -9,6 +9,7 @@
 /// \brief Shape implementation of a non-fixed line segment
 ///
 /// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 /// This line segment is defined with references to its end points
 ///
