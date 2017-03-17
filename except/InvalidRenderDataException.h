@@ -8,6 +8,7 @@
 ///  called with invalid arguments
 ///
 /// \authors Gabriel Bruit
+/// \authors Jeremy Montanes
 ///
 class InvalidRenderDataException: public RenderEngineException
 {
