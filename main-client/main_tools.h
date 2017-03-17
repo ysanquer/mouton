@@ -7,6 +7,9 @@
 ///
 /// \brief Procedure type
 ///
+/// \authors Gabriel Bruit
+/// \authors Jeremy Montanes
+///
 typedef std::function<void()> Proc;
 
 ///
