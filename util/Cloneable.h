@@ -6,8 +6,8 @@
 ///
 /// \brief Makes an object cloneable
 ///
-/// \authors Yann Sanquer
-/// \authors Gabriel Bruit
+/// 
+/// 
 /// \authors Jérémy Montanes
 /// 
 /// A cloneable object of type T typically derives Cloneable<T> and
