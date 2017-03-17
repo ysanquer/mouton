@@ -7,7 +7,7 @@
 /// \brief A RenderEngineException thrown when the engine's render
 ///  frame is set to an invalid state
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 class InvalidRenderFrameException: public RenderEngineException
 {
