@@ -6,7 +6,7 @@
 ///
 /// \brief An exception thrown by a RenderEngine
 ///
-/// \authors YJeremy Montanes
+/// \authors Jeremy Montanes
 ///
 class RenderEngineException: public std::exception
 {
