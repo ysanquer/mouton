@@ -6,6 +6,7 @@
 ///  "metric object"
 ///
 /// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 template<typename MetricObject, typename MetricValue>
 class Metric
