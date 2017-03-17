@@ -4,7 +4,7 @@
 ///
 /// \brief Regroups all global variables
 ///
-/// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 namespace global
 {
