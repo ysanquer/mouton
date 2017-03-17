@@ -9,7 +9,7 @@
 ///
 /// \brief Trim whitespace in a string
 ///
-/// \authors Yann Sanquer
+/// \authors Jeremy Montanes
 ///
 /// All whitespace on the left and right are trimmed from the given string
 ///
