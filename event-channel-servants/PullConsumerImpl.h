@@ -9,7 +9,7 @@
 ///
 /// \brief Implementation of a Pull Consumer
 ///
-/// \authors Yann Sanquer
+/// \authors Gabriel Bruit
 ///
 /// This implementation allows its user to provide it with the
 ///  usual functions for a Pull Consumer
